@@ -44,6 +44,12 @@ describe ArrayUtils do
       ary = [5, 10, 15, 25, 30 ]
       expect(ArrayUtils.new(ary).sort_and_fill).to eq [5, 10, 15, 20, 25, 30 ]
     end
+
+    it "sorts and fills array with multiple, different gaps" do
+      ary = [1, 2, 3, 5, 9, 27] 
+      result = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
+      expect(ArrayUtils.new(ary).sort_and_fill).to eq result
+    end
   end
 
 end
