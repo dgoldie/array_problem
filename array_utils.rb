@@ -21,8 +21,6 @@ class ArrayUtils
     diffs     = differences_between_elements
     return @array if differences_are_same diffs
 
-    positions = indexes_of_missing_elements diffs
-
     insert_new_elements(diffs)
     @array
   end
@@ -44,12 +42,6 @@ class ArrayUtils
 
   def differences_are_same(diffs)
     diffs.uniq.length == 1
-  end
-
-  def indexes_of_missing_elements(diffs)
-  	max = diffs.max
-    #diffs.each_with_index.map { |a, i| a == max ? i : nil }.compact
-    (0..diffs.size-1).select { |x| diffs[x] == max }
   end
 
   def insert_new_elements(diffs)
