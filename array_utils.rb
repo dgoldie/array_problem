@@ -23,7 +23,7 @@ class ArrayUtils
 
     positions = indexes_of_missing_elements diffs
 
-    insert_new_elements(positions, diffs)
+    insert_new_elements(diffs)
     @array
   end
 
@@ -52,18 +52,27 @@ class ArrayUtils
     (0..diffs.size-1).select { |x| diffs[x] == max }
   end
 
-  # The array grows each time you add an element to the array.
-  # To calculate the index in array for the next element 
-  # we add position and index in the positions array.
-  #
-  def insert_new_elements(positions, diffs)
-  	min = diffs.min
-    positions.each_with_index do |position, index|
-    	insert_index = position + index
-      value = @array[insert_index] + min
-      @array.insert(insert_index + 1, value)  
+  def insert_new_elements(diffs)
+    sequence = diffs.min
+
+    @array.each_with_index do |element, index|
+      next if index == 0
+      current_seq = @array[index] - @array[index-1]
+      
+      next if current_seq == sequence
+
+      # build new elements
+      value = @array[index-1] + sequence
+      new_elements = [value]
+      while (value < @array[index] - sequence) do
+        value += sequence
+        new_elements << value
+      end
+      
+      # insert new elements into array
+      @array.insert(index, *new_elements)
+
     end 
   end
-
 end
 
